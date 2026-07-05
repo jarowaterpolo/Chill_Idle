@@ -474,6 +474,53 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7342933600083875291, guid: 19180d20f7c34b24ca80cc90a17470ed, type: 3}
   m_PrefabInstance: {fileID: 4576065347322835250}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1429773246
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1429773248}
+  - component: {fileID: 1429773247}
+  m_Layer: 0
+  m_Name: CRT_WebFix
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1429773247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1429773246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12a3276adf8a1df478f818bc21a46be5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CRT_WebFix
+  myCustomTextures:
+  - {fileID: 8600000, guid: bdc076bb08979024ab6dff8473832ff9, type: 2}
+  - {fileID: 8600000, guid: ddc16fba6d9855145ae7253731995a94, type: 2}
+--- !u!4 &1429773248
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1429773246}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1469854114 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4208361596424862549, guid: 702af5cdd7f5869478a76ab16ba7e74c, type: 3}
@@ -1277,3 +1324,4 @@ SceneRoots:
   - {fileID: 101539193}
   - {fileID: 263633302}
   - {fileID: 1509437326}
+  - {fileID: 1429773248}
