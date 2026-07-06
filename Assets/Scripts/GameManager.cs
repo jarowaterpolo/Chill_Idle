@@ -2,6 +2,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using NaughtyAttributes;
+using System;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,26 +14,22 @@ public class GameManager : MonoBehaviour
     //star
     [SerializeField] private TMP_Text starText;
     [SerializeField] private TMP_Text starGainText;
+    [SerializeField] private GameObject AdvancedUpgrades;
 
     //planet
     [SerializeField] private GameObject planetTabButton;
     [SerializeField] private TMP_Text planetText;
-
-    public bool[] Milestone = new bool[2];
     
     void Start()
     {
-        data = dataSaver.LoadGameData().Data;
+        SaveData saveData = dataSaver.LoadGameData().SaveData;
+        data = DataConverter.FromSave(saveData);
+        SetStarGain();
         UpdateText();
-
-        for (int i = 0; i < Milestone.Length; i++)
-        {
-            Milestone[i] = false;
-        }
 
         StartCoroutine(StarGainPerSecond());
 
-        StartCoroutine(CheckMillionStars());
+        StartCoroutine(CheckStars());
         
         if (data.produceStarGainMult == true)
         {
@@ -61,17 +58,28 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private IEnumerator CheckMillionStars()
+    private IEnumerator CheckStars()
     {
-        while (!Milestone[0])
+        while (!data.Milestones[0])
         {
             yield return null;
             if (data.stars >= 1e6)
             {
-                planetTabButton.SetActive(true);
-                Milestone[0] = true;
+                data.Milestones[0] = true;
             }
         }
+        planetTabButton.SetActive(true);
+        Save();
+        while (!data.Milestones[1]) 
+        {
+            yield return null;
+            if (data.stars >= 1e10)
+            {
+                data.Milestones[1] = true;
+            }
+        }
+        AdvancedUpgrades.SetActive(true);
+        Save();
     }
 
     public void UpdateText()
@@ -89,16 +97,12 @@ public class GameManager : MonoBehaviour
         planetText.text = planetsString;
     }
 
-    private void OnApplicationQuit()
-    {
-        dataSaver.SaveGameData(data);
-    }
 
-    public int GetStars()
+    public double GetStars()
     {
         return data.stars;
     }
-    public void DecereaseStars(int amount)
+    public void DecereaseStars(double amount)
     {
         data.stars -= amount;
         UpdateText();
@@ -106,9 +110,9 @@ public class GameManager : MonoBehaviour
 
     public void SetStarGain()
     {
-        data.totalStarGain = data.baseStarGain * data.starGainMult * data.planetStargainMult;
+        data.totalStarGain = data.baseStarGain * data.starGainMult * data.planetStargainMult * Math.Pow(2, data.planetStarGainPower);
     }
-    public int GetPlanets()
+    public double GetPlanets()
     {
         return data.planets;
     }
@@ -130,6 +134,16 @@ public class GameManager : MonoBehaviour
         UpdateText();
     }
 
+    private void OnApplicationQuit()
+    {
+        Save();
+    }
+
+    private void Save()
+    {
+        SaveData saveData = DataConverter.ToSave(data);
+        dataSaver.SaveGameData(saveData);
+    }
 
     [Button]
     public void ResetData()

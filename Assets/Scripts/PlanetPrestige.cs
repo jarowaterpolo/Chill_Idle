@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -7,7 +8,7 @@ public class PlanetPrestige : MonoBehaviour
     [SerializeField] private GameManager manager;
 
     [SerializeField] private TMP_Text planetRewardText;
-    private int _planetReward;
+    private double _planetReward;
 
     private void Start()
     {
@@ -30,7 +31,7 @@ public class PlanetPrestige : MonoBehaviour
         }
         else
         {
-            _planetReward = Mathf.RoundToInt(Mathf.Log(manager.data.stars, 10f));
+            _planetReward = (Math.Floor(Math.Log10(manager.data.stars)) + manager.data.planetGainBonus + manager.data.starPlanetGainIncrease) * manager.data.planetGainMult;
             SetPlanetPrestigeText();
         }
     }

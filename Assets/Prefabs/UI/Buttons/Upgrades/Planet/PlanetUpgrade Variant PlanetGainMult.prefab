@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &2963790032137323269
+--- !u!1001 &7614712572139930192
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -19,14 +19,14 @@ PrefabInstance:
     - target: {fileID: 3730506433739409012, guid: 37699cc4242674842bb9c53ddea4787f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 3100610889350972779}
+      objectReference: {fileID: 3094027301115077617}
     - target: {fileID: 3730506433739409012, guid: 37699cc4242674842bb9c53ddea4787f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3730506433739409012, guid: 37699cc4242674842bb9c53ddea4787f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: UpgradeStarGainMult
+      value: IncreasePlanetGainMult
       objectReference: {fileID: 0}
     - target: {fileID: 3730506433739409012, guid: 37699cc4242674842bb9c53ddea4787f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -38,7 +38,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4572101990933367245, guid: 37699cc4242674842bb9c53ddea4787f, type: 3}
       propertyPath: m_Name
-      value: PlanetUpgrade Variant StarGainMult
+      value: PlanetUpgrade Variant PlanetGainMult
       objectReference: {fileID: 0}
     - target: {fileID: 5961011263890464501, guid: 37699cc4242674842bb9c53ddea4787f, type: 3}
       propertyPath: m_Pivot.x
@@ -106,7 +106,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5961011263890464501, guid: 37699cc4242674842bb9c53ddea4787f, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -400
       objectReference: {fileID: 0}
     - target: {fileID: 5961011263890464501, guid: 37699cc4242674842bb9c53ddea4787f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -127,12 +127,12 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4572101990933367245, guid: 37699cc4242674842bb9c53ddea4787f, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3100610889350972779}
+      addedObject: {fileID: 3094027301115077617}
   m_SourcePrefab: {fileID: 100100000, guid: 37699cc4242674842bb9c53ddea4787f, type: 3}
---- !u!114 &570565348718025167 stripped
+--- !u!114 &5144964279874984090 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3371632055763835594, guid: 37699cc4242674842bb9c53ddea4787f, type: 3}
-  m_PrefabInstance: {fileID: 2963790032137323269}
+  m_PrefabInstance: {fileID: 7614712572139930192}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
@@ -140,24 +140,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
---- !u!1 &1608385252950215368 stripped
+--- !u!1 &6259926739827985309 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4572101990933367245, guid: 37699cc4242674842bb9c53ddea4787f, type: 3}
-  m_PrefabInstance: {fileID: 2963790032137323269}
+  m_PrefabInstance: {fileID: 7614712572139930192}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &3100610889350972779
+--- !u!114 &3094027301115077617
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1608385252950215368}
+  m_GameObject: {fileID: 6259926739827985309}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8a6bdd439ca8265418379eb962e61a23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlanetUpgrade
   manager: {fileID: 0}
-  cost: 10
-  upgradeText: {fileID: 570565348718025167}
-  upgradeDecription: stargain * 10
+  cost: 100
+  upgradeText: {fileID: 5144964279874984090}
+  upgradeDecription: +1 planet gain mult

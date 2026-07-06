@@ -4,14 +4,44 @@ using UnityEngine;
 public class Data
 {
     //stars
-    public int stars = 0;
-    public int baseStarGain = 1;
-    public int starGainMult = 1;
-    public int starGainMultRate = 0;
+    public double stars = 0;
+    public double baseStarGain = 1;
+    public double starGainMult = 1;
+    public double starGainMultRate = 0;
     public bool produceStarGainMult = false;
-    public int totalStarGain = 1;
+    public double totalStarGain = 1;
+    public double starPlanetGainIncrease = 0;
 
     //planets
-    public int planets = 0;
-    public int planetStargainMult = 1;
+    public double planets = 0;
+    public double planetStargainMult = 1;
+    public double planetGainBonus = 0;
+    public double planetGainMult = 1;
+    public double planetStarGainPower = 0;
+
+    //milestones
+    public bool[] Milestones = new bool[4];
+}
+
+[System.Serializable]
+public class SaveData
+{
+    //stars
+    public string stars = "0";
+    public string baseStarGain = "1";
+    public string starGainMult = "1";
+    public string starGainMultRate = "0";
+    public bool produceStarGainMult = false;
+    public string totalStarGain = "1";
+    public string starPlanetGainIncrease = "0";
+
+    //planets
+    public string planets = "0";
+    public string planetStargainMult = "1";
+    public string planetGainBonus = "0";
+    public string planetGainMult = "1";
+    public string planetStarGainPower = "0";
+
+    //milestones
+    public bool[] Milestones = new bool[4];
 }

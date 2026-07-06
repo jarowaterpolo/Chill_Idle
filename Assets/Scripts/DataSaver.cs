@@ -7,9 +7,9 @@ public class DataSaver
     private string path;
     private string json;
 
-    public void SaveGameData(Data data)
+    public void SaveGameData(SaveData saveData)
     {
-        GameData gameData = new GameData(data);
+        GameData gameData = new GameData(saveData);
         json = JsonUtility.ToJson(gameData, true);
 
 #if (UNITY_WEBGL && !UNITY_EDITOR)
@@ -46,8 +46,8 @@ public class DataSaver
         }
         else
         {
-            Data newData = new Data();
-            GameData emptyData = new(newData);
+            SaveData newSaveData = new SaveData();
+            GameData emptyData = new(newSaveData);
             File.WriteAllText(path, JsonUtility.ToJson(emptyData, true));
             json = File.ReadAllText(path);
             return JsonUtility.FromJson<GameData>(json);
@@ -56,8 +56,8 @@ public class DataSaver
 
     public void ResetData()
     {
-        Data newData = new Data();
-        GameData emptyData = new(newData);
+        SaveData newSaveData = new SaveData();
+        GameData emptyData = new(newSaveData);
         json = JsonUtility.ToJson(emptyData, true);
 
 #if (UNITY_WEBGL && !UNITY_EDITOR)
@@ -78,11 +78,11 @@ public class DataSaver
 [System.Serializable]
 public class GameData
 {
-    public Data Data;
+    public SaveData SaveData;
 
 
-    public GameData(Data data)
+    public GameData(SaveData saveData)
     {
-        Data = data;
+        SaveData = saveData;
     }
 }
