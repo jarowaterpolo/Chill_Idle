@@ -1,5 +1,3 @@
-using UnityEngine;
-
 [System.Serializable]
 public class Data
 {
@@ -21,6 +19,9 @@ public class Data
 
     //milestones
     public bool[] Milestones = new bool[4];
+
+    //auto buyers
+    public AutoBuyer starGainAdditionAutobuyer;
 }
 
 [System.Serializable]
@@ -44,4 +45,7 @@ public class SaveData
 
     //milestones
     public bool[] Milestones = new bool[4];
+
+    //auto buyers
+    public AutoBuyer starGainAdditionAutobuyer;
 }
