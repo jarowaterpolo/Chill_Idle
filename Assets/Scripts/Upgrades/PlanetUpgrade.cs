@@ -4,6 +4,7 @@ using UnityEngine;
 public class PlanetUpgrade : MonoBehaviour
 {
     [SerializeField] private GameManager manager;
+    [SerializeField] private AutoBuyManager autoBuyManager;
 
     [SerializeField] private int cost;
     [SerializeField] private TMP_Text upgradeText;
@@ -68,6 +69,18 @@ public class PlanetUpgrade : MonoBehaviour
         manager.SetStarGain();
         manager.UpdateText();
     }
+    public void AutoBuyStargainAddition()
+    {
+        if (manager.GetPlanets() < cost) return;
+        manager.DecereasePlanets(cost);
+
+        manager.data.starGainAdditionAutobuyer.isActive = true;
+        StartCoroutine(autoBuyManager.StarGainAdditionAutobuyer());
+
+        manager.SetStarGain();
+        manager.UpdateText();
+    }
+
 
     private void UpdateText(string text)
     {
