@@ -4,7 +4,7 @@ using UnityEngine;
 public class PlanetUpgrade : MonoBehaviour
 {
     [SerializeField] private GameManager manager;
-    [SerializeField] private AutoBuyManager autoBuyManager;
+    [SerializeField] private AutobuyManager autobuyManager;
 
     [SerializeField] private int cost;
     [SerializeField] private TMP_Text upgradeText;
@@ -17,6 +17,11 @@ public class PlanetUpgrade : MonoBehaviour
         if (manager == null)
         {
             manager = FindAnyObjectByType<GameManager>();
+        }
+
+        if (autobuyManager == null)
+        {
+            autobuyManager = FindAnyObjectByType<AutobuyManager>();
         }
 
         _upgradeTextString = "cost: " + manager.textFormatter.ReturnText(cost) + "\n" + upgradeDecription;
@@ -69,13 +74,51 @@ public class PlanetUpgrade : MonoBehaviour
         manager.SetStarGain();
         manager.UpdateText();
     }
-    public void AutoBuyStargainAddition()
+    public void UnlockAutoBuyStargainAddition()
     {
         if (manager.GetPlanets() < cost) return;
         manager.DecereasePlanets(cost);
 
-        manager.data.starGainAdditionAutobuyer.isActive = true;
-        StartCoroutine(autoBuyManager.StarGainAdditionAutobuyer());
+        Debug.Log("autobuyer bought");
+        var autobuyer = autobuyManager.GetAutobuyer(AutobuyerType.StarGainAddition);
+        if (autobuyer.isActive == false)
+        {
+            autobuyManager.StartStargainAdditionAutobuyer();
+        }
+
+        manager.SetStarGain();
+        manager.UpdateText();
+
+        gameObject.SetActive(false);
+    }
+
+    public void SpeedUpAutoBuyStargainAddition()
+    {
+        if (manager.GetPlanets() < cost) return;
+        manager.DecereasePlanets(cost);
+
+        var autobuyer = autobuyManager.GetAutobuyer(AutobuyerType.StarGainAddition);
+
+        if (autobuyer.buyDelay > .1f)
+        {
+            autobuyer.buyDelay -= .1f;
+            if (autobuyer.buyDelay <= .1f)
+            {
+                gameObject.SetActive(false);
+            }
+        }
+
+        manager.SetStarGain();
+        manager.UpdateText();
+    }
+
+    public void AmountUpAutoBuyStargainAddition()
+    {
+        if (manager.GetPlanets() < cost) return;
+        manager.DecereasePlanets(cost);
+
+        var autobuyer = autobuyManager.GetAutobuyer(AutobuyerType.StarGainAddition);
+        autobuyer.buyAmount++;
 
         manager.SetStarGain();
         manager.UpdateText();
@@ -84,6 +127,7 @@ public class PlanetUpgrade : MonoBehaviour
 
     private void UpdateText(string text)
     {
+        if (string.IsNullOrEmpty(text) || upgradeText == null) return;
         upgradeText.text = $"{text}";
     }
 }

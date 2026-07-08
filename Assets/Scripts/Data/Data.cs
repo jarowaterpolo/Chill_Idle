@@ -1,4 +1,10 @@
 [System.Serializable]
+public enum AutobuyerType
+{
+    StarGainAddition
+}
+
+[System.Serializable]
 public class Data
 {
     //stars
@@ -18,10 +24,13 @@ public class Data
     public double planetStarGainPower = 0;
 
     //milestones
-    public bool[] Milestones = new bool[4];
+    public bool[] milestones = new bool[4];
 
     //auto buyers
-    public AutoBuyer starGainAdditionAutobuyer;
+    public Autobuyer[] autobuyers = new Autobuyer[]
+    {
+        new Autobuyer{ type = AutobuyerType.StarGainAddition, isActive = false, buyAmount = 1, buyDelay = 1f}
+    };
 }
 
 [System.Serializable]
@@ -44,8 +53,8 @@ public class SaveData
     public string planetStarGainPower = "0";
 
     //milestones
-    public bool[] Milestones = new bool[4];
+    public bool[] milestones = new bool[4];
 
     //auto buyers
-    public AutoBuyer starGainAdditionAutobuyer;
+    public Autobuyer[] autobuyers;
 }

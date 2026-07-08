@@ -1,3 +1,4 @@
+using System.Linq;
 
 public static class DataConverter
 {
@@ -16,7 +17,15 @@ public static class DataConverter
             planetGainBonus = data.planetGainBonus.ToString("R"),
             planetGainMult = data.planetGainMult.ToString("R"),
 
-            Milestones = data.Milestones
+            milestones = data.milestones,
+
+            autobuyers = data.autobuyers.Select(b => new Autobuyer
+            {
+                type = b.type,
+                isActive = b.isActive,
+                buyAmount = b.buyAmount,
+                buyDelay = b.buyDelay,
+            }).ToArray(),
         };
     }
     public static Data FromSave(SaveData saveData)
@@ -34,7 +43,15 @@ public static class DataConverter
             planetGainBonus = double.Parse(saveData.planetGainBonus),
             planetGainMult = double.Parse(saveData.planetGainMult),
 
-            Milestones = saveData.Milestones
+            milestones = saveData.milestones,
+
+           autobuyers = saveData.autobuyers.Select(b => new Autobuyer
+           {
+               type = b.type,
+               isActive = b.isActive,
+               buyAmount = b.buyAmount,
+               buyDelay = b.buyDelay,
+           }).ToArray(),
         };
     }
 }

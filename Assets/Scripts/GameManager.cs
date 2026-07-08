@@ -20,8 +20,15 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject planetTabButton;
     [SerializeField] private TMP_Text planetText;
     
+    private AutobuyManager autoBuyManager;
+
     void Start()
     {
+        if (autoBuyManager == null)
+        {
+            autoBuyManager = FindAnyObjectByType<AutobuyManager>();
+        }
+
         SaveData saveData = dataSaver.LoadGameData().SaveData;
         data = DataConverter.FromSave(saveData);
         SetStarGain();
@@ -35,6 +42,8 @@ public class GameManager : MonoBehaviour
         {
             StartCoroutine(StarGainMultPerSecond());
         }
+
+        autoBuyManager.ActiveAutobuyerRestart();
     }
 
     public IEnumerator StarGainPerSecond()
@@ -60,22 +69,22 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator CheckStars()
     {
-        while (!data.Milestones[0])
+        while (!data.milestones[0])
         {
             yield return null;
             if (data.stars >= 1e6)
             {
-                data.Milestones[0] = true;
+                data.milestones[0] = true;
             }
         }
         planetTabButton.SetActive(true);
         Save();
-        while (!data.Milestones[1]) 
+        while (!data.milestones[1]) 
         {
             yield return null;
             if (data.stars >= 1e10)
             {
-                data.Milestones[1] = true;
+                data.milestones[1] = true;
             }
         }
         AdvancedUpgrades.SetActive(true);

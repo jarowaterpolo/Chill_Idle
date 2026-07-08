@@ -24,8 +24,15 @@ public class StarUpgrade : MonoBehaviour
 
     public void UpgradeStarGainAddition()
     {
-        if (manager.GetStars() < cost) return;
+        Debug.Log("tried to buy stargain addition");
+
+        if (manager.GetStars() < cost)
+        {
+            Debug.Log($"not enough stars");
+            return;
+        }
         manager.DecereaseStars(cost);
+
 
         manager.data.baseStarGain += 1;
         manager.SetStarGain();
@@ -68,6 +75,7 @@ public class StarUpgrade : MonoBehaviour
 
     private void UpdateText(string text)
     {
+        if (string.IsNullOrEmpty(text) || upgradeText == null) return;
         upgradeText.text = $"{text}";
     }
 }
