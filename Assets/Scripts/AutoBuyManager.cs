@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using TMPro;
 using UnityEngine;
 
 public class AutobuyManager : MonoBehaviour
@@ -37,6 +39,8 @@ public class AutobuyManager : MonoBehaviour
                 }
             }
         }
+
+        SetAutobuyerTexts();
     }
 
     public void ActiveAutobuyerRestart()
@@ -45,6 +49,11 @@ public class AutobuyManager : MonoBehaviour
         if (autobuyer.isActive == true)
         {
             StartCoroutine(StarGainAdditionAutobuyer());
+        }
+        autobuyer = GetAutobuyer(AutobuyerType.StarGainMultProducer);
+        if (autobuyer.isActive == true)
+        {
+            StartCoroutine(StarGainMultProducerAutobuyer());
         }
     }
 
@@ -60,11 +69,48 @@ public class AutobuyManager : MonoBehaviour
         var autobuyer = GetAutobuyer(AutobuyerType.StarGainAddition);
         while (autobuyer.isActive == true)
         {
+            SetAutobuyerTexts();
             //Debug.Log($"stargain addittion autobuyer isactive == {manager.data.starGainAdditionAutobuyer.isActive} and needs to wait {manager.data.starGainAdditionAutobuyer.buyDelay} sec to buy {manager.data.starGainAdditionAutobuyer.buyAmount} upgrades");
             yield return new WaitForSeconds(autobuyer.buyDelay);
             for (int i = 0; i < autobuyer.buyAmount; i++)
             {
                 starUpgrade.UpgradeStarGainAddition();
+            }
+        }
+    }
+
+    public void StartStargainMultProducerAutobuyer()
+    {
+        var autobuyer = GetAutobuyer(AutobuyerType.StarGainMultProducer);
+        autobuyer.isActive = true;
+        StartCoroutine(StarGainMultProducerAutobuyer());
+    }
+
+    public IEnumerator StarGainMultProducerAutobuyer()
+    {
+        var autobuyer = GetAutobuyer(AutobuyerType.StarGainMultProducer);
+        while (autobuyer.isActive == true)
+        {
+            SetAutobuyerTexts();
+            //Debug.Log($"stargain addittion autobuyer isactive == {manager.data.starGainAdditionAutobuyer.isActive} and needs to wait {manager.data.starGainAdditionAutobuyer.buyDelay} sec to buy {manager.data.starGainAdditionAutobuyer.buyAmount} upgrades");
+            yield return new WaitForSeconds(autobuyer.buyDelay);
+            for (int i = 0; i < autobuyer.buyAmount; i++)
+            {
+                starUpgrade.UpgradeProduceStarGainMult();
+            }
+        }
+    }
+
+    public void SetAutobuyerTexts()
+    {
+        foreach (var autobuyer in manager.data.autobuyers)
+        {
+            foreach (var ui in autobuyerUIs)
+            {
+                if (autobuyer.type == ui.type)
+                {
+                    ui.funcionText.text = $"buys {autobuyer.buyAmount} upgrades per {Math.Round(autobuyer.buyDelay,1)} seconds";
+                }
             }
         }
     }
@@ -96,4 +142,5 @@ public class AutobuyerUI
     public AutobuyerType type;
     public GameObject unlockButton;
     public GameObject speedupButton;
+    public TMP_Text funcionText;
 }

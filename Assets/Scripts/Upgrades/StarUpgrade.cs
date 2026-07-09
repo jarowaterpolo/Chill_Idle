@@ -51,6 +51,8 @@ public class StarUpgrade : MonoBehaviour
 
     public void UpgradeProduceStarGainMult()
     {
+        Debug.Log("tried to buy stargain produce mult");
+
         if (manager.GetStars() < cost) return;
         manager.DecereaseStars(cost);
 

@@ -30,7 +30,7 @@ public static class DataConverter
     }
     public static Data FromSave(SaveData saveData)
     {
-        return new Data
+        Data data = new Data
         {
             stars = double.Parse(saveData.stars),
             baseStarGain = double.Parse(saveData.baseStarGain),
@@ -44,14 +44,24 @@ public static class DataConverter
             planetGainMult = double.Parse(saveData.planetGainMult),
 
             milestones = saveData.milestones,
-
-           autobuyers = saveData.autobuyers.Select(b => new Autobuyer
-           {
-               type = b.type,
-               isActive = b.isActive,
-               buyAmount = b.buyAmount,
-               buyDelay = b.buyDelay,
-           }).ToArray(),
         };
+
+        if (saveData.autobuyers != null)
+        {
+            foreach (Autobuyer savedBuyer in saveData.autobuyers)
+            {
+                Autobuyer existing = data.autobuyers
+                    .FirstOrDefault(b => b.type == savedBuyer.type);
+
+                if (existing != null)
+                {
+                    existing.isActive = savedBuyer.isActive;
+                    existing.buyAmount = savedBuyer.buyAmount;
+                    existing.buyDelay = savedBuyer.buyDelay;
+                }
+            }
+        }
+
+        return data;
     }
 }
