@@ -7,17 +7,36 @@ public class AutobuyManager : MonoBehaviour
     [SerializeField] private StarUpgrade starUpgrade;
     [SerializeField] private PlanetUpgrade planetUpgrade;
 
-    void Start()
+    [SerializeField] private AutobuyerUI[] autobuyerUIs;
+
+    private void Awake()
     {
         if (manager == null)
         {
             manager = FindAnyObjectByType<GameManager>();
-        }
+        }        
     }
 
-    void Update()
+    private void Start()
     {
-        
+        foreach (var autobuyer in manager.data.autobuyers)
+        {
+            foreach (var ui in autobuyerUIs)
+            {
+                if (autobuyer.type == ui.type)
+                {
+                    if (autobuyer.isActive == true)
+                    {
+                        ui.unlockButton.SetActive(false);
+                    }
+
+                    if (autobuyer.buyDelay <= .1f)
+                    {
+                        ui.speedupButton.SetActive(false);
+                    }
+                }
+            }
+        }
     }
 
     public void ActiveAutobuyerRestart()
@@ -69,4 +88,12 @@ public class Autobuyer
     public bool isActive;
     public int buyAmount;
     public float buyDelay;
+}
+
+[System.Serializable]
+public class AutobuyerUI
+{
+    public AutobuyerType type;
+    public GameObject unlockButton;
+    public GameObject speedupButton;
 }

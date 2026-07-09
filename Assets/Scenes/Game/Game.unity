@@ -559,6 +559,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8068780544301647260, guid: 19180d20f7c34b24ca80cc90a17470ed, type: 3}
   m_PrefabInstance: {fileID: 4576065347322835250}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &763221211 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7578775220248307849, guid: 6ecccce2976c1c64d832c47bb54a1041, type: 3}
+  m_PrefabInstance: {fileID: 1979660126}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &828063484
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1629,6 +1634,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1766039721}
   m_CullTransparentMesh: 1
+--- !u!1 &1895113775 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4193968048592971287, guid: 5559fa13fbea4a7459bf575045175453, type: 3}
+  m_PrefabInstance: {fileID: 828063484}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1963927526
 GameObject:
   m_ObjectHideFlags: 0
@@ -1804,9 +1814,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe91e91d8ee6b6e40bc13634732d3478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AutoBuyManager
-  manager: {fileID: 0}
+  manager: {fileID: 1509437325}
   starUpgrade: {fileID: 1765573480}
   planetUpgrade: {fileID: 1561613446}
+  autobuyerUIs:
+  - type: 0
+    unlockButton: {fileID: 1895113775}
+    speedupButton: {fileID: 763221211}
 --- !u!4 &2104286692
 Transform:
   m_ObjectHideFlags: 0
