@@ -1,7 +1,7 @@
 [System.Serializable]
 public enum AutobuyerType
 {
-    StarGainAddition, StarGainMultProducer
+    StarGainAddition, StarGainMultProducer, StarPlanetGain
 }
 
 [System.Serializable]
@@ -30,7 +30,8 @@ public class Data
     public Autobuyer[] autobuyers = new Autobuyer[]
     {
         new Autobuyer{ type = AutobuyerType.StarGainAddition, isActive = false, buyAmount = 1, buyDelay = 1f},
-        new Autobuyer{ type = AutobuyerType.StarGainMultProducer, isActive = false, buyAmount = 1, buyDelay = 1f }
+        new Autobuyer{ type = AutobuyerType.StarGainMultProducer, isActive = false, buyAmount = 1, buyDelay = 1f },
+        new Autobuyer{ type = AutobuyerType.StarPlanetGain, isActive = false, buyAmount = 1, buyDelay = 1f }
     };
 }
 

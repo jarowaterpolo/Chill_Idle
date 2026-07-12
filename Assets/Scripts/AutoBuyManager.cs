@@ -55,6 +55,11 @@ public class AutobuyManager : MonoBehaviour
         {
             StartCoroutine(StarGainMultProducerAutobuyer());
         }
+        autobuyer = GetAutobuyer(AutobuyerType.StarPlanetGain);
+        if (autobuyer.isActive == true)
+        {
+            StartCoroutine(StarPlanetGainAutobuyer());
+        }
     }
 
     public void StartStargainAdditionAutobuyer()
@@ -97,6 +102,28 @@ public class AutobuyManager : MonoBehaviour
             for (int i = 0; i < autobuyer.buyAmount; i++)
             {
                 starUpgrade.UpgradeProduceStarGainMult();
+            }
+        }
+    }
+
+    public void StartStarPlanetGainAutobuyer()
+    {
+        var autobuyer = GetAutobuyer(AutobuyerType.StarPlanetGain);
+        autobuyer.isActive = true;
+        StartCoroutine(StarPlanetGainAutobuyer());
+    }
+
+    public IEnumerator StarPlanetGainAutobuyer()
+    {
+        var autobuyer = GetAutobuyer(AutobuyerType.StarPlanetGain);
+        while (autobuyer.isActive == true)
+        {
+            SetAutobuyerTexts();
+            //Debug.Log($"stargain addittion autobuyer isactive == {manager.data.starGainAdditionAutobuyer.isActive} and needs to wait {manager.data.starGainAdditionAutobuyer.buyDelay} sec to buy {manager.data.starGainAdditionAutobuyer.buyAmount} upgrades");
+            yield return new WaitForSeconds(autobuyer.buyDelay);
+            for (int i = 0; i < autobuyer.buyAmount; i++)
+            {
+                starUpgrade.IncreasePlanetGain();
             }
         }
     }

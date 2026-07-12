@@ -174,6 +174,56 @@ public class PlanetUpgrade : MonoBehaviour
         manager.UpdateText();
     }
 
+    public void UnlockAutoBuyStarPlanetGain()
+    {
+        if (manager.GetPlanets() < cost) return;
+        manager.DecereasePlanets(cost);
+
+        Debug.Log("autobuyer bought");
+        var autobuyer = autobuyManager.GetAutobuyer(AutobuyerType.StarPlanetGain);
+        if (autobuyer.isActive == false)
+        {
+            autobuyManager.StartStarPlanetGainAutobuyer();
+        }
+
+        manager.SetStarGain();
+        manager.UpdateText();
+
+        gameObject.SetActive(false);
+    }
+
+    public void SpeedUpAutoBuyStarPlanetGain()
+    {
+        if (manager.GetPlanets() < cost) return;
+        manager.DecereasePlanets(cost);
+
+        var autobuyer = autobuyManager.GetAutobuyer(AutobuyerType.StarPlanetGain);
+
+        if (autobuyer.buyDelay > .1f)
+        {
+            autobuyer.buyDelay -= .1f;
+            if (autobuyer.buyDelay <= .1f)
+            {
+                gameObject.SetActive(false);
+            }
+        }
+
+        manager.SetStarGain();
+        manager.UpdateText();
+    }
+
+    public void AmountUpAutoBuyStarPlanetGain()
+    {
+        if (manager.GetPlanets() < cost) return;
+        manager.DecereasePlanets(cost);
+
+        var autobuyer = autobuyManager.GetAutobuyer(AutobuyerType.StarPlanetGain);
+        autobuyer.buyAmount++;
+
+        manager.SetStarGain();
+        manager.UpdateText();
+    }
+
     private void UpdateText(string text)
     {
         if (string.IsNullOrEmpty(text) || upgradeText == null) return;

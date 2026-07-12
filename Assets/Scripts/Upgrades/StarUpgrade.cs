@@ -67,6 +67,8 @@ public class StarUpgrade : MonoBehaviour
 
     public void IncreasePlanetGain()
     {
+        Debug.Log("tried to buy star upgrade planet gain increase");
+
         if (manager.GetStars() < cost) return;
         manager.DecereaseStars(cost);
 

@@ -38,7 +38,7 @@ public class PlanetPrestige : MonoBehaviour
 
     private void SetPlanetPrestigeText()
     {
-        planetRewardText.text = $"prestige now for {_planetReward} planets";
+        planetRewardText.text = "prestige now for " + manager.textFormatter.ReturnText(_planetReward) + " planets";
     }
 
     public void PrestigePlanet()
