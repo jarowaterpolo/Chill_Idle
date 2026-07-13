@@ -19,7 +19,10 @@ public class GameManager : MonoBehaviour
     //planet
     [SerializeField] private GameObject planetTabButton;
     [SerializeField] private TMP_Text planetText;
-    
+
+    //nova
+    [SerializeField] private GameObject novaTabButton;
+
     private AutobuyManager autoBuyManager;
 
     void Start()
@@ -36,7 +39,7 @@ public class GameManager : MonoBehaviour
 
         StartCoroutine(StarGainPerSecond());
 
-        StartCoroutine(CheckStars());
+        StartCoroutine(CheckMilestones());
         
         if (data.produceStarGainMult == true)
         {
@@ -67,28 +70,48 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private IEnumerator CheckStars()
+    private IEnumerator CheckMilestones()
     {
-        while (!data.milestones[0])
+        while (true)
         {
             yield return null;
+            //M0
             if (data.stars >= 1e6)
             {
                 data.milestones[0] = true;
+                planetTabButton.SetActive(true);
+                Save();
             }
-        }
-        planetTabButton.SetActive(true);
-        Save();
-        while (!data.milestones[1]) 
-        {
-            yield return null;
+            //M1
             if (data.stars >= 1e10)
             {
                 data.milestones[1] = true;
+                AdvancedUpgrades.SetActive(true);
+                Save();
+            }
+            //M2
+            if (data.planets >= 1e7)
+            {
+                data.milestones[2] = true;
+                novaTabButton.SetActive(true);
+                Save();
+            }
+
+            bool allMilestonesCompleted = true;
+            foreach (bool milestone in data.milestones)
+            {
+                if (!milestone)
+                {
+                    allMilestonesCompleted = false;
+                    break;
+                }
+            }
+
+            if (allMilestonesCompleted)
+            {
+                yield break;
             }
         }
-        AdvancedUpgrades.SetActive(true);
-        Save();
     }
 
     public void UpdateText()
@@ -119,7 +142,7 @@ public class GameManager : MonoBehaviour
 
     public void SetStarGain()
     {
-        data.totalStarGain = data.baseStarGain * data.starGainMult * data.planetStargainMult * Math.Pow(2, data.planetStarGainPower);
+        data.totalStarGain = data.baseStarGain * data.starGainMult * data.planetStargainMult /* * Math.Pow(2, data.planetStarGainPower)*/;
     }
     public double GetPlanets()
     {
@@ -138,9 +161,26 @@ public class GameManager : MonoBehaviour
         data.starGainMult = 1;
         data.produceStarGainMult = false;
         data.starGainMultRate = 0;
+        data.starPlanetGainIncrease = 0;
         StopCoroutine(StarGainMultPerSecond());
         SetStarGain();
         UpdateText();
+    }
+
+    public void ResetPlanets()
+    {
+        data.planets = 0;
+        data.planetGainBonus = 0;
+        data.planetGainMult = 1;
+        data.planetStargainMult = 1;
+        //data.planetStarGainPower = 0;
+        data.autobuyers = new Autobuyer[]
+        {
+            new Autobuyer{ type = AutobuyerType.StarGainAddition, isActive = false, buyAmount = 1, buyDelay = 1f},
+            new Autobuyer{ type = AutobuyerType.StarGainMultProducer, isActive = false, buyAmount = 1, buyDelay = 1f },
+            new Autobuyer{ type = AutobuyerType.StarPlanetGain, isActive = false, buyAmount = 1, buyDelay = 1f }
+        };
+        ResetStars();
     }
 
     private void OnApplicationPause(bool pause)

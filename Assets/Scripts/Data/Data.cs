@@ -23,6 +23,9 @@ public class Data
     public double planetGainMult = 1;
     public double planetStarGainPower = 0;
 
+    //nova's
+    public double nova = 0;
+
     //milestones
     public bool[] milestones = new bool[4];
 
@@ -53,6 +56,9 @@ public class SaveData
     public string planetGainBonus = "0";
     public string planetGainMult = "1";
     public string planetStarGainPower = "0";
+
+    //nova's
+    public string nova = "0";
 
     //milestones
     public bool[] milestones = new bool[4];
