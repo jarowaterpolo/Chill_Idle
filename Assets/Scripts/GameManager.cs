@@ -143,6 +143,21 @@ public class GameManager : MonoBehaviour
         UpdateText();
     }
 
+    private void OnApplicationPause(bool pause)
+    {
+        if (pause)
+        {
+            Save();
+        }
+    }
+
+    private void OnApplicationFocus(bool focus)
+    {
+        if (!focus)
+        {
+            Save();
+        }
+    }
     private void OnApplicationQuit()
     {
         Save();
