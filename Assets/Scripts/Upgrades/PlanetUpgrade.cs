@@ -25,7 +25,12 @@ public class PlanetUpgrade : MonoBehaviour
         }
 
         _upgradeTextString = "cost: " + manager.textFormatter.ReturnText(manager.data.currentNotation, cost) + "\n" + upgradeDecription;
-        UpdateText(_upgradeTextString);
+        UpdateText();
+
+        if (upgradeText != null)
+        {
+            manager.OnFormattingChange += UpdateText;
+        }
     }
 
     public void UpgradeStarGainMult()
@@ -224,9 +229,10 @@ public class PlanetUpgrade : MonoBehaviour
         manager.UpdateText();
     }
 
-    private void UpdateText(string text)
+    private void UpdateText()
     {
-        if (string.IsNullOrEmpty(text) || upgradeText == null) return;
-        upgradeText.text = $"{text}";
+        _upgradeTextString = "cost: " + manager.textFormatter.ReturnText(manager.data.currentNotation, cost) + "\n" + upgradeDecription;
+        if (string.IsNullOrEmpty(_upgradeTextString) || upgradeText == null) return;
+        upgradeText.text = $"{_upgradeTextString}";
     }
 }

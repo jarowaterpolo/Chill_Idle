@@ -34,7 +34,7 @@ public class SetNotationType : MonoBehaviour
         if (manager != null && currentScene.name == "Game")
         {
             manager.data.currentNotation = type;
-            manager.UpdateText();
+            manager.FormatChangeTrigger();
             Debug.Log($"manager current notation to {type} and try and save");
 
             Debug.Log(manager.data.currentNotation);

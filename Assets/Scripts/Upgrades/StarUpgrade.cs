@@ -19,7 +19,12 @@ public class StarUpgrade : MonoBehaviour
         }
 
         _upgradeTextString = "cost: " + manager.textFormatter.ReturnText(manager.data.currentNotation, cost) + $"\n stargain {upgradeDecription}";
-        UpdateText(_upgradeTextString);
+        UpdateText();
+
+        if (upgradeText != null)
+        {
+            manager.OnFormattingChange += UpdateText;
+        }
     }
 
     public void UpgradeStarGainAddition()
@@ -77,9 +82,10 @@ public class StarUpgrade : MonoBehaviour
         manager.UpdateText();
     }
 
-    private void UpdateText(string text)
+    private void UpdateText()
     {
-        if (string.IsNullOrEmpty(text) || upgradeText == null) return;
-        upgradeText.text = $"{text}";
+        _upgradeTextString = "cost: " + manager.textFormatter.ReturnText(manager.data.currentNotation, cost) + $"\n stargain {upgradeDecription}";
+        if (string.IsNullOrEmpty(_upgradeTextString) || upgradeText == null) return;
+        upgradeText.text = $"{_upgradeTextString}";
     }
 }

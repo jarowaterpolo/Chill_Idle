@@ -7,6 +7,7 @@ using System;
 public class GameManager : MonoBehaviour
 {
     public TextFormatter textFormatter = new();
+    public Action OnFormattingChange;
 
     private DataSaver dataSaver = new();
     [HideInInspector] public Data data = new Data();
@@ -24,16 +25,21 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject novaTabButton;
 
     private AutobuyManager autoBuyManager;
-
+    private void Awake()
+    {
+        SaveData saveData = dataSaver.LoadGameData().SaveData;
+        data = DataConverter.FromSave(saveData);
+        
+    }
     void Start()
     {
+        OnFormattingChange += UpdateText;
+
         if (autoBuyManager == null)
         {
             autoBuyManager = FindAnyObjectByType<AutobuyManager>();
         }
 
-        SaveData saveData = dataSaver.LoadGameData().SaveData;
-        data = DataConverter.FromSave(saveData);
         SetStarGain();
         UpdateText();
 
@@ -188,6 +194,11 @@ public class GameManager : MonoBehaviour
             new Autobuyer{ type = AutobuyerType.StarPlanetGain, isActive = false, buyAmount = 1, buyDelay = 1f }
         };
         ResetStars();
+    }
+
+    public void FormatChangeTrigger()
+    {
+        OnFormattingChange?.Invoke();
     }
 
     private void OnApplicationPause(bool pause)
