@@ -38,7 +38,7 @@ public class NovaPrestige : MonoBehaviour
 
     private void SetNovaPrestigeText()
     {
-        novaRewardText.text = "prestige now for " + manager.textFormatter.ReturnText(_novaReward) + " nova(s)";
+        novaRewardText.text = "prestige now for " + manager.textFormatter.ReturnText(manager.data.currentNotation, _novaReward) + " nova(s)";
     }
 
     public void PrestigeNova()

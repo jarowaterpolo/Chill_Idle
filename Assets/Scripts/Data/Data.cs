@@ -1,4 +1,10 @@
 [System.Serializable]
+public enum notationType
+{
+    normal, shortend, scientific
+}
+
+[System.Serializable]
 public enum AutobuyerType
 {
     StarGainAddition, StarGainMultProducer, StarPlanetGain
@@ -7,6 +13,9 @@ public enum AutobuyerType
 [System.Serializable]
 public class Data
 {
+    //notation
+    public notationType currentNotation = notationType.shortend;
+
     //stars
     public double stars = 0;
     public double baseStarGain = 1;
@@ -41,6 +50,9 @@ public class Data
 [System.Serializable]
 public class SaveData
 {
+    //notation
+    public notationType currentNotation;
+
     //stars
     public string stars = "0";
     public string baseStarGain = "1";

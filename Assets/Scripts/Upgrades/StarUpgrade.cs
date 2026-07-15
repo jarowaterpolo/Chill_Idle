@@ -18,7 +18,7 @@ public class StarUpgrade : MonoBehaviour
             manager = FindAnyObjectByType<GameManager>();
         }
 
-        _upgradeTextString = "cost: " + manager.textFormatter.ReturnText(cost) + $"\n stargain {upgradeDecription}";
+        _upgradeTextString = "cost: " + manager.textFormatter.ReturnText(manager.data.currentNotation, cost) + $"\n stargain {upgradeDecription}";
         UpdateText(_upgradeTextString);
     }
 

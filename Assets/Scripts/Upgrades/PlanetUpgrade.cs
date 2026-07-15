@@ -24,7 +24,7 @@ public class PlanetUpgrade : MonoBehaviour
             autobuyManager = FindAnyObjectByType<AutobuyManager>();
         }
 
-        _upgradeTextString = "cost: " + manager.textFormatter.ReturnText(cost) + "\n" + upgradeDecription;
+        _upgradeTextString = "cost: " + manager.textFormatter.ReturnText(manager.data.currentNotation, cost) + "\n" + upgradeDecription;
         UpdateText(_upgradeTextString);
     }
 

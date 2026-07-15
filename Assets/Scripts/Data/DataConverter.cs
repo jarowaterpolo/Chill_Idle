@@ -6,6 +6,8 @@ public static class DataConverter
     {
         return new SaveData
         {
+            currentNotation = data.currentNotation,
+
             stars = data.stars.ToString("R"),
             baseStarGain = data.baseStarGain.ToString("R"),
             starGainMult = data.starGainMult.ToString("R"),
@@ -32,6 +34,8 @@ public static class DataConverter
     {
         Data data = new Data
         {
+            currentNotation = saveData.currentNotation,
+
             stars = double.Parse(saveData.stars),
             baseStarGain = double.Parse(saveData.baseStarGain),
             starGainMult = double.Parse(saveData.starGainMult),

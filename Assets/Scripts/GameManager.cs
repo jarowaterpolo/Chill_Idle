@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     public TextFormatter textFormatter = new();
 
     private DataSaver dataSaver = new();
-    public Data data = new Data();
+    [HideInInspector] public Data data = new Data();
 
     //star
     [SerializeField] private TMP_Text starText;
@@ -116,15 +116,22 @@ public class GameManager : MonoBehaviour
 
     public void UpdateText()
     {
+        if (data.currentNotation == notationType.shortend || data.currentNotation == notationType.normal)
+        {
+            if (data.stars >= 1e36)
+            {
+                data.currentNotation = notationType.scientific;
+            }
+        }
         //stars
-        var starsString = textFormatter.ReturnText(data.stars);
-        var starGainString = textFormatter.ReturnText(data.totalStarGain) + " stars/s";
+        var starsString = textFormatter.ReturnText(data.currentNotation, data.stars);
+        var starGainString = textFormatter.ReturnText(data.currentNotation, data.totalStarGain) + " stars/s";
 
         starText.text = starsString;
         starGainText.text = starGainString;
 
         //planets
-        var planetsString = textFormatter.ReturnText(data.planets);
+        var planetsString = textFormatter.ReturnText(data.currentNotation, data.planets);
 
         planetText.text = planetsString;
     }

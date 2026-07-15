@@ -1,12 +1,10 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class TextFormatter
-{
-    public enum notationType { normal, shortend, scientific }
-    public notationType currentNotation = notationType.shortend;
-
-    public string ReturnText(double value)
+{   
+    public string ReturnText(notationType currentNotation, double value)
     {
         switch (currentNotation) 
         {
@@ -17,7 +15,7 @@ public class TextFormatter
                 return FormatNumber(value);
 
             case notationType.scientific:
-                return value.ToString("E0");
+                return value.ToString("0.00E0");
 
             default:
                 return "";
